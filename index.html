@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Alphabet Learning</title>
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 10px; /* Add padding for better spacing */
+        }
+
+        #buttonContainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #revealButton, #resetButton {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px; /* Default padding */
+            margin: 0 10px; /* Adjust margin for spacing between buttons */
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100px; /* Absolute width */
+            height: 40px; /* Absolute height */
+        }
+
+        #revealButton:hover, #resetButton:hover {
+            background-color: #555;
+        }
+
+        #reverseAlphabet {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #reverseList {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow list items to wrap on smaller screens */
+        }
+
+        #reverseList li {
+            background-color: #333;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 40px;
+            font-size: 20px;
+        }
+
+        #reverseList li:hover {
+            background-color: #444;
+        }
+
+        #userInput {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            margin: 5px;
+            font-size: 20px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #999;
+        }
+
+        input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        #timer {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        hr {
+            border-color: #444;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Learn the Reverse Alphabet</h1>
+    <div id="buttonContainer">
+        <button id="revealButton" onclick="toggleReverseAlphabet()">Show Answer</button>
+        <button id="resetButton" onclick="resetInput()">Reset</button>
+    </div>
+    <div id="reverseAlphabet" class="hidden">
+        <ul id="reverseList">
+            <!-- List items for reverse alphabet -->
+            <li>Z</li>
+            <li>Y</li>
+            <li>X</li>
+            <li>W</li>
+            <li>V</li>
+            <li>U</li>
+            <li>T</li>
+            <li>S</li>
+            <li>R</li>
+            <li>Q</li>
+            <li>P</li>
+            <li>O</li>
+            <li>N</li>
+            <li>M</li>
+            <li>L</li>
+            <li>K</li>
+            <li>J</li>
+            <li>I</li>
+            <li>H</li>
+            <li>G</li>
+            <li>F</li>
+            <li>E</li>
+            <li>D</li>
+            <li>C</li>
+            <li>B</li>
+            <li>A</li>
+        </ul>
+    </div>
+    <hr>
+    <h2>Type the Alphabet Backwards:</h2>
+    <div id="userInput">
+        <!-- Input boxes for each letter -->
+        <input type="text" maxlength="1" placeholder=" " id="letterZ" oninput="checkLetter('Z', 'letterY')">
+        <input type="text" maxlength="1" placeholder=" " id="letterY" oninput="checkLetter('Y', 'letterX')">
+        <input type="text" maxlength="1" placeholder=" " id="letterX" oninput="checkLetter('X', 'letterW')">
+        <input type="text" maxlength="1" placeholder=" " id="letterW" oninput="checkLetter('W', 'letterV')">
+        <input type="text" maxlength="1" placeholder=" " id="letterV" oninput="checkLetter('V', 'letterU')">
+        <input type="text" maxlength="1" placeholder=" " id="letterU" oninput="checkLetter('U', 'letterT')">
+        <input type="text" maxlength="1" placeholder=" " id="letterT" oninput="checkLetter('T', 'letterS')">
+        <input type="text" maxlength="1" placeholder=" " id="letterS" oninput="checkLetter('S', 'letterR')">
+        <input type="text" maxlength="1" placeholder=" " id="letterR" oninput="checkLetter('R', 'letterQ')">
+        <input type="text" maxlength="1" placeholder=" " id="letterQ" oninput="checkLetter('Q', 'letterP')">
+        <input type="text" maxlength="1" placeholder=" " id="letterP" oninput="checkLetter('P', 'letterO')">
+        <input type="text" maxlength="1" placeholder=" " id="letterO" oninput="checkLetter('O', 'letterN')">
+        <input type="text" maxlength="1" placeholder=" " id="letterN" oninput="checkLetter('N', 'letterM')">
+        <input type="text" maxlength="1" placeholder=" " id="letterM" oninput="checkLetter('M', 'letterL')">
+        <input type="text" maxlength="1" placeholder=" " id="letterL" oninput="checkLetter('L', 'letterK')">
+        <input type="text" maxlength="1" placeholder=" " id="letterK" oninput="checkLetter('K', 'letterJ')">
+        <input type="text" maxlength="1" placeholder=" " id="letterJ" oninput="checkLetter('J', 'letterI')">
+        <input type="text" maxlength="1" placeholder=" " id="letterI" oninput="checkLetter('I', 'letterH')">
+        <input type="text" maxlength="1" placeholder=" " id="letterH" oninput="checkLetter('H', 'letterG')">
+        <input type="text" maxlength="1" placeholder=" " id="letterG" oninput="checkLetter('G', 'letterF')">
+        <input type="text" maxlength="1" placeholder=" " id="letterF" oninput="checkLetter('F', 'letterE')">
+        <input type="text" maxlength="1" placeholder=" " id="letterE" oninput="checkLetter('E', 'letterD')">
+        <input type="text" maxlength="1" placeholder=" " id="letterD" oninput="checkLetter('D', 'letterC')">
+        <input type="text" maxlength="1" placeholder=" " id="letterC" oninput="checkLetter('C', 'letterB')">
+        <input type="text" maxlength="1" placeholder=" " id="letterB" oninput="checkLetter('B', 'letterA')">
+        <input type="text" maxlength="1" placeholder=" " id="letterA" oninput="checkLetter('A', '')">
+    </div>
+    <div id="timer">00:00:00.000</div>
+    <!-- Add the audio element -->
+    <audio id="correctSound">
+        <source src="Correct Answer.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        var reverseAlphabetVisible = false;
+        var startTime;
+        var totalInputs = 26;
+        var timerInterval;
+
+        function toggleReverseAlphabet() {
+            var reverseAlphabet = document.getElementById('reverseAlphabet');
+            var revealButton = document.getElementById('revealButton');
+            
+            if (!reverseAlphabetVisible) {
+                reverseAlphabet.classList.remove('hidden');
+                revealButton.textContent = 'Hide Answer';
+            } else {
+                reverseAlphabet.classList.add('hidden');
+                revealButton.textContent = 'Show Answer';
+            }
+            
+            reverseAlphabetVisible = !reverseAlphabetVisible;
+        }
+
+        function startTimer() {
+            startTime = new Date().getTime();
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 10); // Update every 10 milliseconds
+        }
+
+        function updateTimer() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = currentTime - startTime;
+            var hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+            var minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            var milliseconds = Math.floor((elapsedTime % 1000));
+            document.getElementById('timer').textContent = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + padMilliseconds(milliseconds);
+        }
+
+        function pad(num) {
+            return (num < 10 ? '0' : '') + num;
+        }
+
+        function padMilliseconds(num) {
+            if (num < 10) {
+                return "00" + num;
+            } else if (num < 100) {
+                return "0" + num;
+            }
+            return num;
+        }
+
+        function checkLetter(letter, nextInputId) {
+            var input = document.getElementById('letter' + letter);
+            var userInput = input.value.toUpperCase(); // Convert input to uppercase for case-insensitive comparison
+            if (userInput === letter) {
+                // Correct input
+                input.style.backgroundColor = 'lightgreen';
+                if (!startTime) {
+                    startTimer();
+                }
+                totalInputs--;
+                if (nextInputId !== '') {
+                    var nextInput = document.getElementById(nextInputId);
+                    nextInput.focus();
+                }
+                if (totalInputs === 0) {
+                    clearInterval(timerInterval);
+                    playCorrectSound(); // Play the sound when all letters are correct
+                }
+            } else {
+                // Incorrect input
+                input.style.backgroundColor = 'red';
+            }
+        }
+
+        function resetInput() {
+            var inputs = document.querySelectorAll('input[type="text"]');
+            inputs.forEach(function(input) {
+                input.value = '';
+                input.style.backgroundColor = '#333';
+            });
+            clearInterval(timerInterval);
+            document.getElementById('timer').textContent = '00:00:00.000';
+            totalInputs = 26;
+            startTime = null;
+        }
+
+        function playCorrectSound() {
+            var audio = document.getElementById('correctSound');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
